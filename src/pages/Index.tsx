@@ -1,7 +1,7 @@
 import { StarField } from "@/components/StarField"
 import { ChevronDown, Heart, Flame, Sparkles, Shield, BotIcon as Robot } from "lucide-react"
-import { ContactForm } from "@/components/ContactForm"
 import { ChatbotModal } from "@/components/ChatbotModal"
+import { RegisterModal } from "@/components/RegisterModal"
 import { useState, useEffect, useRef } from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -13,6 +13,7 @@ export default function Index() {
   const [isServicesTitleVisible, setIsServicesTitleVisible] = useState(false)
   const [blurAmount, setBlurAmount] = useState(0)
   const [isChatbotOpen, setIsChatbotOpen] = useState(false)
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false)
   const [initialHeight, setInitialHeight] = useState(0)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const aboutSectionRef = useRef<HTMLElement>(null)
@@ -63,65 +64,49 @@ export default function Index() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsHeadingVisible(true)
-          if (headingRef.current) {
-            headingObserver.unobserve(headingRef.current)
-          }
+          if (headingRef.current) headingObserver.unobserve(headingRef.current)
         }
       },
       { threshold: 0.1 },
     )
 
-    if (headingRef.current) {
-      headingObserver.observe(headingRef.current)
-    }
+    if (headingRef.current) headingObserver.observe(headingRef.current)
 
     const aboutObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsAboutVisible(true)
-          if (aboutContentRef.current) {
-            aboutObserver.unobserve(aboutContentRef.current)
-          }
+          if (aboutContentRef.current) aboutObserver.unobserve(aboutContentRef.current)
         }
       },
       { threshold: 0.1 },
     )
 
-    if (aboutContentRef.current) {
-      aboutObserver.observe(aboutContentRef.current)
-    }
+    if (aboutContentRef.current) aboutObserver.observe(aboutContentRef.current)
 
     const servicesObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsServicesVisible(true)
-          if (servicesContentRef.current) {
-            servicesObserver.unobserve(servicesContentRef.current)
-          }
+          if (servicesContentRef.current) servicesObserver.unobserve(servicesContentRef.current)
         }
       },
       { threshold: 0.1 },
     )
 
-    if (servicesContentRef.current) {
-      servicesObserver.observe(servicesContentRef.current)
-    }
+    if (servicesContentRef.current) servicesObserver.observe(servicesContentRef.current)
 
     const servicesTitleObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsServicesTitleVisible(true)
-          if (servicesTitleRef.current) {
-            servicesTitleObserver.unobserve(servicesTitleRef.current)
-          }
+          if (servicesTitleRef.current) servicesTitleObserver.unobserve(servicesTitleRef.current)
         }
       },
       { threshold: 0.1 },
     )
 
-    if (servicesTitleRef.current) {
-      servicesTitleObserver.observe(servicesTitleRef.current)
-    }
+    if (servicesTitleRef.current) servicesTitleObserver.observe(servicesTitleRef.current)
 
     return () => {
       if (headingRef.current) headingObserver.unobserve(headingRef.current)
@@ -143,14 +128,10 @@ export default function Index() {
     }
   }
 
-  const scrollToContact = () => {
-    if (contactSectionRef.current) {
-      contactSectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" })
-    }
-  }
-
   const openChatbot = () => setIsChatbotOpen(true)
   const closeChatbot = () => setIsChatbotOpen(false)
+  const openRegister = () => setIsRegisterOpen(true)
+  const closeRegister = () => setIsRegisterOpen(false)
 
   const heroStyle = {
     height: initialHeight ? `${initialHeight}px` : "100vh",
@@ -162,7 +143,7 @@ export default function Index() {
       <section className="relative w-full overflow-hidden bg-black" style={heroStyle}>
         <div className="absolute top-6 right-6 z-10 flex space-x-3">
           <Button
-            onClick={scrollToContact}
+            onClick={openRegister}
             variant="outline"
             size="sm"
             className="bg-transparent text-white border-white hover:bg-white hover:text-black transition-colors"
@@ -175,7 +156,6 @@ export default function Index() {
           <StarField blurAmount={blurAmount} />
         </div>
 
-        {/* Pink nebula glow */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -209,7 +189,7 @@ export default function Index() {
                 Дейтинг без границ — только для взрослых
               </p>
               <Button
-                onClick={scrollToAbout}
+                onClick={openRegister}
                 size="sm"
                 className="mt-6 transition-colors"
                 style={{
@@ -218,7 +198,7 @@ export default function Index() {
                   color: "#fff",
                 }}
               >
-                Узнать больше
+                Начать бесплатно
               </Button>
             </div>
           </div>
@@ -238,7 +218,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* О нас */}
+      {/* О приложении */}
       <section ref={aboutSectionRef} id="about" className="py-20 bg-gradient-to-b from-black to-gray-900 text-white">
         <div className="container mx-auto px-4">
           <div
@@ -262,21 +242,21 @@ export default function Index() {
                 <h2 className="text-3xl font-bold font-heading">О приложении</h2>
                 <div className="space-y-4 max-w-2xl">
                   <p className="text-gray-300">
-                    <span style={{ color: "#f472b6" }}>Desire Universe</span> — это пространство для раскрепощённых взрослых, 
+                    <span style={{ color: "#f472b6" }}>Desire Universe</span> — это пространство для раскрепощённых взрослых,
                     которые ищут искренние связи, флирт и незабываемые знакомства.
                   </p>
                   <p className="text-gray-300">
-                    Мы создали место, где можно быть собой: открыто говорить о своих интересах, 
+                    Мы создали место, где можно быть собой: открыто говорить о своих интересах,
                     желаниях и предпочтениях без осуждения и табу.
                   </p>
                   <p className="text-gray-300">
-                    Умный алгоритм подбирает совместимых партнёров на основе твоих интересов и предпочтений — 
+                    Умный алгоритм подбирает совместимых партнёров на основе твоих интересов и предпочтений —
                     никаких случайных совпадений, только те, кто тебя поймёт.
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3 pt-4 justify-center md:justify-start">
                   <Button
-                    onClick={scrollToContact}
+                    onClick={openRegister}
                     size="sm"
                     className="w-[160px] mx-auto sm:mx-0 transition-colors"
                     style={{
@@ -399,33 +379,41 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Контакты / Регистрация */}
+      {/* CTA секция */}
       <section
         ref={contactSectionRef}
         id="contact"
-        className="py-16"
+        className="py-20"
         style={{
           background: "linear-gradient(135deg, #1a0a1e 0%, #0d0d0d 100%)",
         }}
       >
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 text-center">
           <h2
             ref={headingRef}
             className={cn(
-              "mb-4 text-center text-3xl font-bold font-heading text-white transition-all duration-1000 ease-out",
+              "mb-4 text-3xl md:text-5xl font-bold font-heading text-white transition-all duration-1000 ease-out",
               isHeadingVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
             )}
           >
             Готов начать?
           </h2>
-          <p className="text-center text-gray-400 mb-10">
-            Оставь email — и мы пришлём ранний доступ первым
+          <p className="text-gray-400 mb-8 text-lg">
+            Регистрация займёт 2 минуты. Первый месяц — бесплатно.
           </p>
-          <ContactForm />
+          <Button
+            onClick={openRegister}
+            className="text-white border-none text-base px-10 py-6"
+            style={{ background: "linear-gradient(90deg, #ec4899, #a855f7)" }}
+          >
+            Зарегистрироваться 🔥
+          </Button>
+          <p className="text-gray-600 text-xs mt-6">Только для лиц старше 18 лет</p>
         </div>
       </section>
 
       <ChatbotModal isOpen={isChatbotOpen} onClose={closeChatbot} />
+      <RegisterModal isOpen={isRegisterOpen} onClose={closeRegister} />
     </div>
   )
 }
