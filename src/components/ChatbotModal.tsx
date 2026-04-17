@@ -72,9 +72,9 @@ export function ChatbotModal({ isOpen, onClose }: ChatbotModalProps) {
 
         <div className="h-[80vh] w-full overflow-hidden rounded-lg flex items-center justify-center bg-gray-900">
           <div className="text-center text-white p-8">
-            <p className="text-xl mb-4">ИИ-ассистент</p>
-            <p className="text-gray-400">Скоро здесь появится наш ИИ-ассистент.</p>
-            <p className="text-gray-500 mt-4 text-sm">Свяжитесь с нами: hello@example.com</p>
+            <p className="text-2xl mb-3">🔥 ИИ-консьерж</p>
+            <p className="text-gray-400 max-w-sm mx-auto">Скоро здесь появится наш ИИ-ассистент, который поможет найти идеального партнёра и ответит на любые вопросы.</p>
+            <p className="text-gray-500 mt-6 text-sm">Написать нам: <span style={{color: "#f472b6"}}>hello@desire-universe.app</span></p>
           </div>
         </div>
       </div>
