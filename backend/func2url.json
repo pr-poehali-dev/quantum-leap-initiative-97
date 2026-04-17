@@ -1,0 +1,6 @@
+{
+  "send-verify-code": "https://functions.poehali.dev/28c1a232-ce5a-4d93-ba83-b6374a32db36",
+  "save-profile": "https://functions.poehali.dev/deeb19fa-00be-4f82-a983-29801142a1b4",
+  "get-profile": "https://functions.poehali.dev/fbd852c4-d20d-4563-8f9b-7bbb3cf30067",
+  "check-verify-code": "https://functions.poehali.dev/9d78fe84-31f4-4323-a160-9f62ee46c96b"
+}
